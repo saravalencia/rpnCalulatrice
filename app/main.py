@@ -6,10 +6,19 @@ from sqlalchemy.orm import Session
 from fastapi.responses import StreamingResponse
 import csv
 from io import StringIO
+from fastapi.middleware.cors import CORSMiddleware
 
 models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins for testing, adjust in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all methods
+    allow_headers=["*"],  # Allows all headers
+)
 
 
 # Pydantic models
